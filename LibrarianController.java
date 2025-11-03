@@ -29,32 +29,22 @@ public class LibrarianController {
 	}
 
 	public void returnBook(Book book, Member member){
-		if(!this.library.containsMember(member)){
-			System.out.println("Member " + member.getName() + " not found.");
-		}
+		if(!this.library.containsMember(member)) 
+			return;
 		if(member.hasBook(book)){
 			member.removeBook(book);
 			this.library.addBook(book);
-			System.out.println(member.getName() + " has successfully returned " + book.getTitle());
-		}
-		else{
-			System.out.println(member.getName() + " didn't borrow " + book.getTitle());
 		}
 	}
 
 	public void borrowBook(Book book, Member member) {
-		if(!this.library.containsMember(member)){
-			System.out.println("Member " + memberName + " not found.");
-		}
+		if(!this.library.containsMember(member))
+			return;
 
 		if (this.libray.containsBook(book)) {
 			this.library.removeBook(book);
 			member.borrowBook(book);
-			System.out.println(memberName + " has successfully borrowed " + bookName);
-		} else {
-			System.out.println(bookName + " is either already borrowed or not available.");
 		}
 	}
-
 
 }
