@@ -8,19 +8,22 @@ public class LibrarianController {
 
 	// TODO: implement functionality of LibrarianController class
 
+	//A librarian Controller only has one library they controller
 	private Library library;
 
 	public LibrarianController(){
 		this.library = new Library();
 	}
 
-	public void addMember(String name){
-		int id = 1000 + (name.hashCode() % 10);
-		Member member = new Member(id, name);
-		this.library.addMember(member);
+	public void addBook(String bookTitle, String author){
+		this.library.addBook(new Book(bookTitle, author));
 	}
 
-	public void showBooks(){
+	public void addMember(String name){
+		this.library.registerMember(name);
+	}
+
+	public void showAvailableBooks(){
 		this.library.showBooks();
 	}
 
@@ -28,22 +31,35 @@ public class LibrarianController {
 		this.library.showMembers();
 	}
 
-	public void returnBook(Book book, Member member){
-		if(!this.library.containsMember(member)) 
+	public void returnBook(String bookTitle, String memberName){
+		Member member = this.library.findMemberByName(memberName);
+		if(member == null){
+			System.out.println(memberName + " not registered at the library.");
 			return;
-		if(member.hasBook(book)){
-			member.removeBook(book);
+		}
+		Book book = member.hasBook(bookTitle);
+		if(book != null) {
+			member.returnBook(book);
 			this.library.addBook(book);
+			System.out.println(memberName + " has successfully returned " + bookTitle);
+		}else {
+			System.out.println(memberName + " didn't borrow " + bookTitle);
 		}
 	}
 
-	public void borrowBook(Book book, Member member) {
-		if(!this.library.containsMember(member))
+	public void borrowBook(String bookTitle, String memberName) {
+		Member member = this.library.findMemberByName(memberName);
+		if(member == null){
+			System.out.println(memberName + " not registered at the library.");
 			return;
-
-		if (this.libray.containsBook(book)) {
+		}
+		Book book = this.library.findBookbyTitle(bookTitle);
+		if(book != null){
 			this.library.removeBook(book);
 			member.borrowBook(book);
+			System.out.println(memberName + " has successfully borrowed " + bookTitle);
+		}else {
+			System.out.println(bookTitle + " is either already borrowed or not available.");
 		}
 	}
 
