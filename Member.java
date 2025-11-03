@@ -35,9 +35,14 @@ public class Member {
         return false;
     }
 
-    public boolean hasBook(Book book) {
-        return borrowedBooks.contains(book);
-    }
+    public Book hasBook(String title) {
+    	for (Book book : borrowedBooks) {
+        	if (book.getTitle().equals(title)) {
+            	return book;
+        	}
+		}
+    return null; 
+}
 
     public List<String> getBorrowedBookTitles() {
         List<String> titles = new ArrayList<>();
