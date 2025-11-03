@@ -26,19 +26,10 @@ public class Book {
 		return isAvailable;
 	}
 
-	public void checkAvailable(){
-		if(isAvailable){
-			isAvailable = false;
-			System.out.println(title + " has been borrowed");
-		}
-		else{
-			System.out.println(title + " is not available");
-		}
-	}
-
 	public void setAvailable(){
 		isAvailable = true;
 		System.out.println(title + " has been returned");
 	}
 }
+
 
